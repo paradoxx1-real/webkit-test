@@ -116,12 +116,12 @@
   </style>
 </head>
 <body>
-  <h1>🟣 PS4 WebKit Exploit (11.00 - 12.52)</h1>
-  <button onclick="startExploit()">Try WebKit Exploit</button>
+  <h1>🟣 PS4 WebKit Exploit (10.00 - 12.52)</h1>
+  <button onclick="startExploit()">Test WebKit Exploit</button>
 
   <div id="mod-menu" class="mod-menu" aria-label="Fake PS4 Mod Menu">
     <h2>Mod Menu</h2>
-    <button onclick="alert('GoldHEN Enabled!')">Enable GoldHEN</button>
+    <button onclick="alert('GoldHEN 2.4b18.4 Enabled!')">Enable GoldHEN 2.4b18.4</button>
     <button onclick="alert('HEN Auto Loader Installed!')">Install HEN Auto Loader</button>
     <button onclick="alert('Disable Safety Checks')">Disable Safety Checks</button>
     <button onclick="alert('Dumping System Files')">Dump System Files</button>
@@ -129,16 +129,38 @@
     <button onclick="alert('Patch Updates Applied')">Apply Patches</button>
   </div>
 
-  <div id="game-mod-menu" class="mod-menu" aria-label="Fake PS4 Game Mod Menus">
-    <h2>Game Mod Menus</h2>
+  <div id="game-mod-menu" class="mod-menu" aria-label=" PS4 Game Trainer">
+    <h2>Game Trainer</h2>
     <button onclick="alert('Infinite Ammo enabled for Call of Duty!')">CoD: Infinite Ammo</button>
-    <button onclick="alert('God Mode enabled for GTA V!')">GTA V: God Mode</button>
-    <button onclick="alert('Unlock All Skins for Fortnite!')">Fortnite: Unlock Skins</button>
-    <button onclick="alert('Unlimited Money for The Last of Us!')">TLOU: Unlimited Money</button>
+    <button onclick="alert('God Mode enabled for GTA V! ')">GTA V: God Mode</button>
+    <button onclick="alert('Unlocked ESP for Fortnite!')">Fortnite: Unlock ESP</button>
+    <button onclick="alert('God Mode Activatedfor The Last of Us!')">TLOU: God Mode</button>
     <button onclick="alert('No Clip activated for Minecraft!')">Minecraft: No Clip</button>
     <button onclick="alert('Max Level Boost applied for FIFA 21!')">FIFA 21: Max Level</button>
   </div>
+  
+   <div id="game-mod-menu" class="mod-menu" aria-label=" PS4 linux payloads">
+    <h2>Linux Payloads</h2>
+    <button onclick="alert('Launching Linux!')">Linux 1GB Vram 7GB ram</button>
+    <button onclick="alert('Launching Linux!')">Linux 2GB VRAM 6GB RAM</button>
+    <button onclick="alert('Launching Linux!')">LINUX 3GB VRAM 5GB RAM</button>
+    <button onclick="alert('Launching Linux!')">LINUX 4GB VRAM 4GB RAM</button>
+    <button onclick="alert('Launching Linux!')">LINUX 5GB VRAM 3GB RAM</button>
+    <button onclick="alert('Launching Linux!')">LINUX 6GB VRAM 2GB RAM</button>
+     <button onclick="alert('Launching Linux!')">LINUX 7GB VRAM 1GB RAM</button>
+  </div>
 
+  <div id="game-mod-menu" class="mod-menu" aria-label=" PS4 linux payloads">
+    <h2> Payloads</h2>
+    <button onclick="alert('FTP launched! Port:1337')">FTP</button>
+    <button onclick="alert('Application is currently dumping, do not remove USB!')">App2usb</button>
+    <button onclick="alert('ToDex Enabled')">ToDex Enable</button>
+    <button onclick="alert('ToDex Disabled')">ToDex Disable</button>
+    <button onclick="alert('Kernel Dumped To USB')">Kernel dumper</button>
+    <button onclick="alert('Firmware Downgrading, insert USB')">Downgrade firmware</button>
+     <button onclick="alert('Firmware spoofing, insert USB!')">Spoof Firmware</button>
+  </div>
+  
   <div id="progress-container">
     <div id="progress-bar"></div>
   </div>
@@ -160,7 +182,8 @@
       "[+] ROP chain created.",
       "[*] Executing payload...",
       "[+] Kernel patch complete.",
-      "[!] Exploit finished. Launching mods..."
+      "[!] Exploit finished. Launching GoldHEN...",
+      "[!] GoldHEN launched..."
     ];
 
     function startExploit() {
