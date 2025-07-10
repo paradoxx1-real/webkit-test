@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PS4 WebKit Exploit</title>
+  <style>
+    body {
+      background-color: #0a0a0a;
+      color: #d3a4ff;
+      font-family: "Courier New", monospace;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      color: #c77dff;
+      text-shadow: 0 0 8px #c77dff;
+    }
+    button {
+      background-color: #1a001f;
+      color: #e0b3ff;
+      border: 2px solid #a64dff;
+      padding: 12px 24px;
+      font-size: 16px;
+      cursor: pointer;
+      text-shadow: 0 0 5px #c77dff;
+      border-radius: 12px;
+      transition: background-color 0.3s, box-shadow 0.3s;
+      margin: 8px 8px 8px 0;
+      min-width: 150px;
+      font-weight: bold;
+      letter-spacing: 0.05em;
+      user-select: none;
+    }
+    button:hover {
+      background-color: #2b0033;
+      box-shadow: 0 0 15px #c77dff;
+    }
+    #progress-container {
+      margin-top: 20px;
+      width: 100%;
+      background-color: #1a001f;
+      border: 1px solid #a64dff;
+      height: 25px;
+      display: none;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    #progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #c77dff, #a64dff);
+      box-shadow: 0 0 10px #a64dff;
+      transition: width 0.3s ease-in-out;
+    }
+    #output {
+      margin-top: 30px;
+      white-space: pre-wrap;
+      max-height: 70vh;
+      overflow-y: auto;
+      border-top: 1px solid #a64dff;
+      padding-top: 20px;
+      font-size: 14px;
+      line-height: 1.5;
+      border-radius: 12px;
+    }
+    .line {
+      opacity: 0;
+      animation: fadeIn 0.2s forwards;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* PS4-style mod menu container */
+    .mod-menu {
+      margin-top: 30px;
+      padding: 15px;
+      background: #140022;
+      border: 2px solid #a64dff;
+      border-radius: 16px;
+      box-shadow: 0 0 20px #8a33ff88 inset;
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 500px;
+      user-select: none;
+    }
+    .mod-menu h2 {
+      width: 100%;
+      color: #d9a4ff;
+      font-weight: 700;
+      margin-bottom: 12px;
+      text-shadow: 0 0 8px #b07dff;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      letter-spacing: 0.1em;
+    }
+    .mod-menu button {
+      flex: 1 1 45%;
+      margin: 6px;
+      font-size: 15px;
+      border-color: #d18aff;
+      background: linear-gradient(145deg, #2c0050, #1c0030);
+      box-shadow:
+        0 0 8px #aa6fff,
+        inset 0 -3px 8px #50226f;
+      color: #e8caff;
+      transition: background-color 0.25s, box-shadow 0.25s;
+    }
+    .mod-menu button:hover {
+      background: linear-gradient(145deg, #3b0070, #290040);
+      box-shadow:
+        0 0 15px #e0a4ff,
+        inset 0 -3px 12px #7730a1;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <h1>🟣 PS4 WebKit Exploit (11.00 - 12.52)</h1>
+  <button onclick="startExploit()">Try WebKit Exploit</button>
+
+  <div id="mod-menu" class="mod-menu" aria-label="Fake PS4 Mod Menu">
+    <h2>Mod Menu</h2>
+    <button onclick="alert('GoldHEN Enabled!')">Enable GoldHEN</button>
+    <button onclick="alert('HEN Auto Loader Installed!')">Install HEN Auto Loader</button>
+    <button onclick="alert('Disable Safety Checks')">Disable Safety Checks</button>
+    <button onclick="alert('Dumping System Files')">Dump System Files</button>
+    <button onclick="alert('Activate Debug Settings')">Activate Debug Settings</button>
+    <button onclick="alert('Patch Updates Applied')">Apply Patches</button>
+  </div>
+
+  <div id="game-mod-menu" class="mod-menu" aria-label="Fake PS4 Game Mod Menus">
+    <h2>Game Mod Menus</h2>
+    <button onclick="alert('Infinite Ammo enabled for Call of Duty!')">CoD: Infinite Ammo</button>
+    <button onclick="alert('God Mode enabled for GTA V!')">GTA V: God Mode</button>
+    <button onclick="alert('Unlock All Skins for Fortnite!')">Fortnite: Unlock Skins</button>
+    <button onclick="alert('Unlimited Money for The Last of Us!')">TLOU: Unlimited Money</button>
+    <button onclick="alert('No Clip activated for Minecraft!')">Minecraft: No Clip</button>
+    <button onclick="alert('Max Level Boost applied for FIFA 21!')">FIFA 21: Max Level</button>
+  </div>
+
+  <div id="progress-container">
+    <div id="progress-bar"></div>
+  </div>
+
+  <div id="output"></div>
+
+  <script>
+    const output = document.getElementById("output");
+    const progressBar = document.getElementById("progress-bar");
+    const progressContainer = document.getElementById("progress-container");
+
+    const lines = [
+      "[*] Initializing WebKit engine...",
+      "[*] Preparing memory pool...",
+      "[*] Leaking libc base address...",
+      "[+] Found libc at 0x13AC200",
+      "[*] Bypassing DEP and ASLR...",
+      "[*] Triggering type confusion...",
+      "[+] ROP chain created.",
+      "[*] Executing payload...",
+      "[+] Kernel patch complete.",
+      "[!] Exploit finished. Launching mods..."
+    ];
+
+    function startExploit() {
+      output.innerHTML = "";
+      progressContainer.style.display = "block";
+      let progress = 0;
+      let progressInterval = setInterval(() => {
+        progress += Math.random() * 10;
+        if (progress >= 100) {
+          progress = 100;
+          clearInterval(progressInterval);
+          loadLines();
+        }
+        progressBar.style.width = progress + "%";
+      }, 200);
+    }
+
+    function loadLines() {
+      let i = 0;
+      const interval = setInterval(() => {
+        if (i >= lines.length) {
+          clearInterval(interval);
+          return;
+        }
+        const line = document.createElement("div");
+        line.classList.add("line");
+        line.textContent = lines[i];
+        output.appendChild(line);
+        output.scrollTop = output.scrollHeight;
+        i++;
+      }, 500);
+    }
+  </script>
+</body>
+</html>
